@@ -9,10 +9,27 @@ const dateScalar = new GraphQLScalarType({
   parseValue: (value) => new Date(value),
 });
 
-// Resolvers
+/**
+ * Aquí se define dateScalar es una configuración especial
+ * para que grahphql pueda transformar la fecha a una iso date
+ * ya que por default regresa la fecha tipo Unix Timestamp por ejemplo 1360013296
+ * después de eso en el objeto resolvers define la propiedad Date: dateScalar
+ * ya con esto en todos los resolvers que regrese un date ya esté formateado
+ */
 const resolvers = {
   Date: dateScalar,
+  /**
+   * Es necesario que los query que se definieron en los esquemas se definan aquí
+   * con el mismo nombre y en el mismo apartado las query en Query y los mutation en Mutation
+   */
   Query: {
+    /**
+     * Tanto en los query como mutations se define como una función pero recibe 4 parámetros
+     * 1: parent - Regresa el valor del resolver
+     * 2: args - Es el objeto con los parámetros que se definen en el query o mutation
+     * 3: context - Un objeto compartido entre todos los solucionadores que se ejecutan para una operación en particular. Use esto para compartir el estado por operación, incluida la información de autenticación, las instancias del cargador de datos y cualquier otra cosa para rastrear entre los resolutores.
+     * 4: info - Contiene información sobre el estado de ejecución de la operación, incluido el nombre del campo, la ruta al campo desde la raíz y más.
+     */
     getAuthors: async () => {
       try {
         const authors = await Author.find({})

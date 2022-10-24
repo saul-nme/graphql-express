@@ -5,6 +5,7 @@ const {
   Schema: { Types },
 } = mongoose;
 
+// Book schema configuration
 const bookSchema = new Schema({
   title: {
     type: Types.String,

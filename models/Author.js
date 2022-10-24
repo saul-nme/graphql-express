@@ -5,6 +5,7 @@ const {
   Schema: { Types },
 } = mongoose;
 
+// Author model schema configuration
 const authorSchema = new Schema({
   firstName: {
     type: Types.String,
